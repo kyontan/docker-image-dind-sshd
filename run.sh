@@ -26,7 +26,7 @@ source /etc/profile
 
 # deploy authorized_keys
 if [ ! -z "${AUTHORIZED_KEYS}" ]; then
-    echo ${AUTHORIZED_KEYS} >> /root/.authorized_keys
+    echo ${AUTHORIZED_KEYS} >> /root/.ssh/authorized_keys
 fi
 
 # deploy docker-client-config ( docker registry login)
