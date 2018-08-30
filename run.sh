@@ -25,7 +25,7 @@ echo "starting ssshd"
 source /etc/profile
 
 # deploy authorized_keys
-if [ ! -z "${AUHTORIZED_KEYS}" ]; then
+if [ ! -z "${AUTHORIZED_KEYS}" ]; then
     echo ${AUTHORIZED_KEYS} >> /root/.authorized_keys
 fi
 
