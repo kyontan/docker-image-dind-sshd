@@ -52,4 +52,9 @@ if [ ! -z "${AUHTORIZED_KEYS}" ]; then
     echo ${AUTHORIZED_KEYS} >> /root/.authorized_keys
 fi
 
+# deploy docker-client-config ( docker registry login)
+if [ ! -z "${DOCKER_CLIENT_CONFIG_JSON}" ]; then
+    echo ${DOCKER_CLIENT_CONFIG_JSON} >> /root/.docker/config.json
+fi
+
 exec "$@"
