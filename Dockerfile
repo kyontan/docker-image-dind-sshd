@@ -31,8 +31,12 @@ RUN set -x \
 ENV DIND_COMMIT 3b5fac462d21ca164b3778647420016315289034
 
 RUN wget "https://raw.githubusercontent.com/docker/docker/${DIND_COMMIT}/hack/dind" -O /usr/local/bin/dind \
-	&& chmod +x /usr/local/bin/dind
-
+	&& chmod +x /usr/local/bin/dind \
+	&& mkdir -p /root/.docker/ /root/.ssh/ \
+	&& chmod u=rwx,g=,o= /root/.ssh \
+        && chmod u=r,g=,o= /root/.ssh/authorized_keys \
+        && touch /root/.docker/config.json
+	
 COPY dockerd-entrypoint.sh /usr/local/bin/
 
 VOLUME /var/lib/docker
