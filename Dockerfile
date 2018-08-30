@@ -23,7 +23,12 @@ RUN apk add --no-cache \
 	&& chmod u=rwx,g=,o= /root/.ssh \
 	&& chmod u=r,g=,o= /root/.ssh/authorized_keys \
 	&& rm -rf /etc/ssh/ssh_host_rsa_key /etc/ssh/ssh_host_dsa_key
-	
+
+# disable password auth - a no-go in any case
+RUN echo "PermitRootLogin prohibit-password" >> /etc/ssh/sshd_config && \
+  echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
+
+
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
 
