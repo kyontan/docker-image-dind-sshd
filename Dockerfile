@@ -12,15 +12,16 @@ RUN apk add --no-cache \
 		xz \
 		py-pip \
 		openssh \
-		git \		
+		git \
 	&& pip install --upgrade pip \
 	&& pip install -U docker-compose==${DOCKER_COMPOSE_VERSION} \
 	&& rm -rf /root/.cache \
-        && chmod +x /usr/local/bin/dind \
+    && chmod +x /usr/local/bin/dind \
 	&& mkdir -p /root/.docker/ /root/.ssh/ \
+	&& touch /root/.docker/config.json \
+	&& touch /root/.ssh/authorized_keys \
 	&& chmod u=rwx,g=,o= /root/.ssh \
 	&& chmod u=r,g=,o= /root/.ssh/authorized_keys \
-	&& touch /root/.docker/config.json \ 
 	&& rm -rf /etc/ssh/ssh_host_rsa_key /etc/ssh/ssh_host_dsa_key
 	
 COPY run.sh /run.sh

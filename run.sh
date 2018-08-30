@@ -2,28 +2,6 @@
 set -e
 # X forward version
 
-#Docker
-#clean pid after unexpected kill
-if [ -f "/var/run/docker.pid" ]; then
-		rm -rf /var/run/docker.pid
-fi
-
-if [ "$#" -eq 0 -o "${1:0:1}" = '-' ]; then
-	set -- docker daemon \
-		--host=unix:///var/run/docker.sock \
-		--host=tcp://127.0.0.1:2375 \
-		--storage-driver=overlay \
-		"$@"
-fi
-
-if [ "$1" = 'docker' -a "$2" = 'daemon' ]; then
-	# if we're running Docker, let's pipe through dind
-	# (and we'll run dind explicitly with "sh" since its shebang is /bin/bash)
-	set -- sh "$(which dind)" "$@"
-fi
-
-
-
 #SSHD
 # prepare keys
 if [ ! -f "/etc/ssh/ssh_host_rsa_key" ]; then
@@ -40,10 +18,9 @@ if [ ! -d "/var/run/sshd" ]; then
 fi
 
 # start sshd
+echo "starting ssshd"
 /usr/sbin/sshd -D &
 
-# set docker settings
-echo "export DOCKER_HOST='tcp://127.0.0.1:2375'" >> /etc/profile
 # reread all config
 source /etc/profile
 
@@ -57,4 +34,11 @@ if [ ! -z "${DOCKER_CLIENT_CONFIG_JSON}" ]; then
     echo ${DOCKER_CLIENT_CONFIG_JSON} >> /root/.docker/config.json
 fi
 
-exec "$@"
+if [ "$1" = 'docker' ]; then
+    echo "starting docker in client mode (BUSYWAIT), assuming you mounted /var/run/docker.sock from a running docker engine"
+    while :; do sleep 1; done
+    exit 0
+fi
+
+echo "starting dind"
+exec /usr/local/bin/dockerd-entrypoint.sh "$@"
