@@ -47,4 +47,9 @@ echo "export DOCKER_HOST='tcp://127.0.0.1:2375'" >> /etc/profile
 # reread all config
 source /etc/profile
 
+# deploy authorized_keys
+if [ ! -z "${AUHTORIZED_KEYS}" ]; then
+    echo ${AUTHORIZED_KEYS} >> /root/.authorized_keys
+fi
+
 exec "$@"
