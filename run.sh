@@ -26,12 +26,12 @@ source /etc/profile
 
 # deploy authorized_keys
 if [ ! -z "${AUTHORIZED_KEYS}" ]; then
-    echo ${AUTHORIZED_KEYS} >> /root/.ssh/authorized_keys
+    echo "${AUTHORIZED_KEYS//$'\n'/\n}" > /root/.ssh/authorized_keys
 fi
 
 # deploy docker-client-config ( docker registry login)
 if [ ! -z "${DOCKER_CLIENT_CONFIG_JSON}" ]; then
-    echo ${DOCKER_CLIENT_CONFIG_JSON} >> /root/.docker/config.json
+    echo ${DOCKER_CLIENT_CONFIG_JSON} > /root/.docker/config.json
 fi
 
 if [ "$1" = 'docker' ]; then
