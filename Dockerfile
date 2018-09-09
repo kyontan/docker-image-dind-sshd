@@ -26,8 +26,9 @@ RUN apk add --no-cache \
 
 # disable password auth - a no-go in any case
 RUN echo "PermitRootLogin prohibit-password" >> /etc/ssh/sshd_config && \
-  echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
-
+  echo "PasswordAuthentication no" >> /etc/ssh/sshd_config && \
+  echo "ClientAliveInterval 120" >> /etc/ssh/sshd_config && \  
+  echo "ClientAliveCountMax 720" >> /etc/ssh/sshd_config
 
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
