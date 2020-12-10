@@ -16,6 +16,9 @@ fi
 if [ ! -d "/var/run/sshd" ]; then
 	mkdir -p /var/run/sshd
 fi
+# start logging for ssh
+echo "starting syslog"
+syslogd &
 
 # start sshd
 echo "starting ssshd"

@@ -12,6 +12,7 @@ RUN apk add --no-cache \
 		xz \
 		py-pip \
 		openssh \
+    rsyslog \
 		git \
 	&& pip install --upgrade pip \
 	&& pip install -U docker-compose==${DOCKER_COMPOSE_VERSION} \
