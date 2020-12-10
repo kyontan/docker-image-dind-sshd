@@ -16,6 +16,10 @@ fi
 if [ ! -d "/var/run/sshd" ]; then
 	mkdir -p /var/run/sshd
 fi
+
+# unlock root user for ssh user
+passwd -u root
+
 # start logging for ssh
 echo "starting syslog"
 syslogd &
