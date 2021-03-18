@@ -1,5 +1,5 @@
 build:
-	docker build --rm -t eugenmayer/docker-dind-sshd ./
+	docker build --rm -t kyontan/docker-dind-sshd ./
 
 push:
-	docker push eugenmayer/docker-dind-sshd
+	docker push kyontan/docker-dind-sshd
