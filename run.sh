@@ -36,6 +36,10 @@ if [ ! -z "${AUTHORIZED_KEYS}" ]; then
     echo "${AUTHORIZED_KEYS//$'\n'/\n}" > /root/.ssh/authorized_keys
 fi
 
+if [ ! -z "${AUTHORIZED_KEYS_FOR_GITHUB_USER}" ]; then
+    curl https://github.com/${AUTHORIZED_KEYS_FOR_GITHUB_USER}.keys >> /root/.ssh/authorized_keys
+fi
+
 # deploy docker-client-config ( docker registry login)
 if [ ! -z "${DOCKER_CLIENT_CONFIG_JSON}" ]; then
     echo ${DOCKER_CLIENT_CONFIG_JSON} > /root/.docker/config.json

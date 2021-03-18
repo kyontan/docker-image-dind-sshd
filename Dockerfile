@@ -14,6 +14,7 @@ RUN apk add --no-cache \
 		openssh \
     rsyslog \
 		git \
+		curl \
 	&& pip install --upgrade pip \
 	&& pip install -U docker-compose==${DOCKER_COMPOSE_VERSION} \
 	&& rm -rf /root/.cache \
