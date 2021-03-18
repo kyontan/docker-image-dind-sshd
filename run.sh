@@ -12,6 +12,10 @@ if [ ! -f "/etc/ssh/ssh_host_dsa_key" ]; then
 	# generate fresh dsa key
 	ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa
 fi
+if [ ! -f "/etc/ssh/ssh_host_ecdsa_key" ]; then
+	# generate fresh dsa key
+	ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa
+fi
 #prepare run dir
 if [ ! -d "/var/run/sshd" ]; then
 	mkdir -p /var/run/sshd
@@ -25,7 +29,7 @@ echo "starting syslog"
 syslogd &
 
 # start sshd
-echo "starting ssshd"
+echo "starting sshd"
 /usr/sbin/sshd -D &
 
 # reread all config
