@@ -4,6 +4,7 @@ Forked and basied on official docker:dind image with an added SSH server.
 
 ## Common configuration
  - configuring and SSH key using ENV `AUTHORIZED_KEYS` - you need to have the public key here, not the path to the public key
+ - configuring and SSH key via GitHub user using ENV `AUTHORIZED_KEYS_FOR_GITHUB_USER` supported
  
 ## Docker socket (reuse running docker engine
  - Mount your local docker socket into the container to `/var/run/docker.sock`
